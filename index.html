@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SNDS Frankfort</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #0E123A; /* Dark blue color */
+      overflow-x: hidden;
+      background: linear-gradient(135deg, rgba(240, 81, 35, 1), rgba(255, 165, 0, 1)); /* Orange gradient background */
+      transition: background 0.5s, color 0.5s;
+    }
+    header {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 0.5em 2em;
+      text-align: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      transition: background 0.5s, color 0.5s, padding 0.5s, font-size 0.5s;
+    }
+    header.expand {
+      padding: 1em 2em;
+    }
+    header h1 {
+      font-size: 1.5em;
+      margin: 0;
+      color: #F05123; /* Orange color */
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      transition: color 0.5s, font-size 0.5s;
+    }
+    header h1 span {
+      color: #0E123A; /* Dark blue color */
+    }
+    header.expand h1 {
+      font-size: 2.5em;
+    }
+    nav {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+    nav ul li {
+      margin: 0 1em;
+      position: relative;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: #0E123A; /* Dark blue color */
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    nav ul li a:hover {
+      color: #F05123; /* Orange color */
+    }
+    nav ul li ul {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 0;
+      list-style: none;
+      margin: 0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    nav ul li:hover ul {
+      display: block;
+    }
+    nav ul li ul li {
+      padding: 0.5em 1em;
+      white-space: nowrap;
+    }
+    nav ul li ul li a {
+      color: #0E123A; /* Dark blue color */
+    }
+    nav ul li ul li a:hover {
+      color: #F05123; /* Orange color */
+    }
+    section {
+      padding: 8em 2em 2em;
+      text-align: center;
+      display: none;
+      transition: background 1s;
+      min-height: 100vh;
+      background: rgba(255, 255, 255, 0.9); /* Lighter background */
+      color: #0E123A; /* Dark blue color */
+    }
+    section.active {
+      display: block;
+    }
+    section h2 {
+      font-size: 2em;
+      margin-bottom: 0.5em;
+    }
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(240, 81, 35, 1), rgba(255, 165, 0, 1)); /* Match page background */
+      display: none;
+      z-index: 1001;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.3s;
+    }
+    #loader.fade-out {
+      opacity: 0;
+    }
+    .slider {
+      width: 20%;
+      height: 10px; /* Thicker slider */
+      background: #FFF;
+      border-radius: 5px; /* Rounded corners */
+      position: relative;
+      overflow: hidden;
+    }
+    .slider::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to right, #F05123, #0E123A);
+      border-radius: 5px; /* Match rounded corners */
+      animation: slide 0.7s infinite;
+    }
+    @keyframes slide {
+      0% {
+        left: -100%;
+      }
+      50% {
+        left: 100%;
+      }
+      100% {
+        left: 100%;
+      }
+    }
+    .slider-finish {
+      animation: shrink 0.3s forwards;
+    }
+    @keyframes shrink {
+      0% {
+        width: 20%;
+        height: 10px;
+      }
+      100% {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin: 0 auto;
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+<header id="header">
+  <div>
+    <h1><span style="color: #F05123;">SNDS</span> <span style="color: #0E123A;">Frankfort</span></h1>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="#" id="menu-link" class="menu-button">Menu</a></li>
+      <li>
+        <a href="#" class="menu-button">More</a>
+        <ul>
+          <li><a href="#about" class="nav-link" data-bg-color="#FFFFFF">About Me</a></li>
+          <li><a href="#services" class="nav-link" data-bg-color="#FFFFFF">What I Do</a></li>
+          <li><a href="#prices" class="nav-link" data-bg-color="#FFFFFF">Prices</a></li>
+          <li><a href="#contact" class="nav-link" data-bg-color="#FFFFFF">Contact Me</a></li>
+          <li><a href="#gallery" class="nav-link" data-bg-color="#FFFFFF">Gallery</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</header>
+<div id="loader">
+  <div class="slider"></div>
+</div>
+<section id="menu" class="active">
+  <h2>Welcome to SNDS Frankfort Drone Services</h2>
+  <p>Discover our top-notch drone services, from aerial photography to event coverage and more. Navigate through the menu to learn more about what we offer.</p>
+</section>
+<section id="about">
+  <h2>About Me</h2>
+  <p>Hello! I'm Sebastian Norton, a professional drone pilot. I specialize in capturing stunning aerial footage and providing top-notch drone services for various projects and events. With years of experience and a passion for flying, I bring a unique perspective to every project I undertake.</p>
+</section>
+<section id="services">
+  <h2>What I Do</h2>
+  <p>As a drone pilot, I offer a range of services including:</p>
+  <ul>
+    <li>Aerial photography and videography</li>
+    <li>Real estate drone tours</li>
+    <li>Event coverage</li>
+    <li>Inspection services</li>
+    <li>Custom drone projects</li>
+  </ul>
+</section>
+<section id="prices">
+  <h2>Prices</h2>
+  <p>My pricing is competitive and tailored to meet your needs. Contact me for a customized quote based on your specific requirements.</p>
+</section>
+<section id="contact">
+  <h2>Contact Me</h2>
+  <p>If you'd like to get in touch, please email me at <a href="mailto:sebastian@example.com">sebastian@example.com</a> or call me at (123) 456-7890. I look forward to working with you!</p>
+</section>
+<section id="gallery">
+  <h2>Gallery</h2>
+  <p>Coming soon...</p>
+</section>
+<script>
+  document.querySelectorAll('nav a.nav-link').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      showLoader();
+      document.querySelectorAll('section').forEach(section => {
+        section.classList.remove('active');
+      });
+      setTimeout(() => {
+        document.querySelector(this.getAttribute('href')).classList.add('active');
+        document.body.style.backgroundColor = this.getAttribute('data-bg-color');
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+        hideLoader();
+      }, 1000); // Loading time 3 times shorter
+      document.getElementById('header').classList.add('expand');
+    });
+  });
+
+  document.getElementById('menu-link').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.querySelectorAll('section').forEach(section => {
+      section.classList.remove('active');
+    });
+    document.getElementById('menu').classList.add('active');
+    document.body.style.backgroundColor = '#FFFFFF'; /* Light background */
+    document.getElementById('header').classList.remove('expand');
+  });
+
+  function showLoader() {
+    document.getElementById('loader').style.display = 'flex';
+    setTimeout(() => {
+      document.querySelector('.slider').classList.add('slider-finish');
+      setTimeout(() => {
+        document.getElementById('loader').classList.add('fade-out');
+        setTimeout(hideLoader, 300); // Ensure loader is hidden after fade-out
+      }, 300);
+    }, 700);
+  }
+
+  function hideLoader() {
+    document.getElementById('loader').style.display = 'none';
+    document.getElementById('loader').classList.remove('fade-out');
+    document.querySelector('.slider').classList.remove('slider-finish');
+  }
+
+  document.addEventListener('mousemove', function(e) {
+    const x = e.clientX / window.innerWidth;
+    const y = e.clientY / window.innerHeight;
+    const bgColor = `linear-gradient(135deg, rgba(240, 81, 35, ${1 - x}), rgba(255, 165, 0, ${1 - y}))`;
+    document.body.style.background = bgColor;
+  });
+
+  // Hide loader on initial load after a delay
+  window.addEventListener('load', hideLoader);
+</script>
+</body>
+</html>
