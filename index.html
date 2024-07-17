@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="icon" href="./favicon.ico" sizes="16x16">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SNDS Frankfort</title>
@@ -46,6 +47,10 @@
     header.expand h1 {
       font-size: 2.5em;
     }
+    .left-container, .right-container {
+      display: flex;
+      align-items: center;
+    }
     nav {
       margin: 0;
       padding: 0;
@@ -76,7 +81,7 @@
       display: none;
       position: absolute;
       top: 100%;
-      left: 0;
+      right: 0;
       background: rgba(255, 255, 255, 0.9);
       padding: 0;
       list-style: none;
@@ -97,7 +102,7 @@
       color: #F05123; /* Orange color */
     }
     section {
-      padding: 8em 2em 2em;
+      padding: 60px 32px 32px 32px;
       text-align: center;
       display: none;
       transition: background 1s;
@@ -175,19 +180,43 @@
         opacity: 0;
       }
     }
+
+    @media screen and (max-width: 768px) {
+      #header {
+        align-items: start;
+        padding: 0.5em 0.5em;
+        justify-content: flex-start;
+      }
+
+      #header nav {
+        width: 100%;
+        text-align: right;
+      }
+
+      .right-container {
+        align-self: center;
+        text-align: right;
+      }
+
+    }
   </style>
 </head>
 <body>
 <header id="header">
-  <div>
-    <h1><span style="color: #F05123;">SNDS</span> <span style="color: #0E123A;">Frankfort</span></h1>
+  <div class="left-container">
+    <div style="display: flex; align-items: center;">
+      <img src="icon.svg">
+      <span style="font-size: 20px; font-weight: bold; color: #F05123; padding-right: 5px">SNDS</span>
+      <span style="font-size: 20px; font-weight: bold; color: #0E123A;">Frankfort</span>
+    </div>
   </div>
-  <nav>
+  <nav class="right-container">
     <ul>
-      <li><a href="#" id="menu-link" class="menu-button">Menu</a></li>
+<!--      <li><a href="#" id="menu-link" class="menu-button">Menu</a></li>-->
       <li>
         <a href="#" class="menu-button">More</a>
         <ul>
+          <li><a href="#home" class="nav-link" data-bg-color="#FFFFFF">Home</a></li>
           <li><a href="#about" class="nav-link" data-bg-color="#FFFFFF">About Me</a></li>
           <li><a href="#services" class="nav-link" data-bg-color="#FFFFFF">What I Do</a></li>
           <li><a href="#prices" class="nav-link" data-bg-color="#FFFFFF">Prices</a></li>
@@ -201,11 +230,12 @@
 <div id="loader">
   <div class="slider"></div>
 </div>
-<section id="menu" class="active">
+<section id="home" class="active">
 
   <h2>Welcome to SNDS Frankfort Drone Services</h2>
   <p>Discover our top-notch drone services, from aerial photography to event coverage and more. Navigate through the menu to learn more about what we offer.</p>
-  <img src="img/photo2.png" style="width: 400px; max-width: 100%">
+  <img src="img/photo2.png" style="width: 800px; max-width: 100%; padding: 10px">
+
 </section>
 <section id="about">
   <h2>About Me</h2>
@@ -255,7 +285,7 @@
     });
   });
 
-  document.getElementById('menu-link').addEventListener('click', function(e) {
+  document.getElementById('home').addEventListener('click', function(e) {
     e.preventDefault();
     document.querySelectorAll('section').forEach(section => {
       section.classList.remove('active');
